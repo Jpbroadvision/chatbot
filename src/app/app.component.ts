@@ -1,9 +1,10 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ChatbotService} from './services/chatbot-service';
 import {Answer} from './models/answer.model';
 import {Persona} from './models/persona.model';
 import {Question} from './models/question.model';
-import {debounceTime, Subject, Subscription, throttleTime} from 'rxjs';
+import {debounceTime, Subject, Subscription} from 'rxjs';
+import {CHATBOT_SERVICE_TOKEN} from './app.module';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   private questionSubscription?: Subscription;
 
-  constructor(private chatbotService: ChatbotService) {
+  constructor(@Inject(CHATBOT_SERVICE_TOKEN) private chatbotService: ChatbotService) {
   }
 
   ngOnInit(): void {

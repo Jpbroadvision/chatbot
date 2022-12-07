@@ -3,10 +3,11 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ChatbotService} from './services/chatbot-service';
 import {FormsModule} from '@angular/forms';
-import {RemoteChatbotService} from './services/remote-chatbot.service';
 import {HttpClientModule} from '@angular/common/http';
+import {LocalChatbotService} from './services/local-chatbot.service';
+
+export const CHATBOT_SERVICE_TOKEN = 'chatbot-service';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import {HttpClientModule} from '@angular/common/http';
     FormsModule,
     HttpClientModule
   ],
-  providers: [{provide: ChatbotService, useClass: RemoteChatbotService}],
+  providers: [{provide: CHATBOT_SERVICE_TOKEN, useClass: LocalChatbotService}],
   bootstrap: [AppComponent]
 })
 export class AppModule {
