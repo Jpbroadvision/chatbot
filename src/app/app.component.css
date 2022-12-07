@@ -1,0 +1,18 @@
+.content {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 0.5em;
+  width: 60%;
+}
+
+.error-message {
+  color: red;
+}
+
+select {
+  grid-column: span 2;
+}
+
+input, div:not(.content) {
+  grid-column: span 3;
+}

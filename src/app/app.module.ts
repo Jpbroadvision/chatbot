@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import {LocalChatbotService} from './services/local-chatbot.service';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
 import {ChatbotService} from './services/chatbot-service';
+import {FormsModule} from '@angular/forms';
+import {RemoteChatbotService} from './services/remote-chatbot.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -12,9 +14,12 @@ import {ChatbotService} from './services/chatbot-service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [{provide: ChatbotService, useClass: LocalChatbotService}],
+  providers: [{provide: ChatbotService, useClass: RemoteChatbotService}],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

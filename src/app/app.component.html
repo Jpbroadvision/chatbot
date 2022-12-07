@@ -1,3 +1,21 @@
-<input #question/>
-<button (click)="askQuestion(question.value)">Ask Me!</button>
-<div>{{answer}}</div>
+<h1>Chatty bot</h1>
+<div class="content">
+  <label>Please select a category: </label>
+  <select [(ngModel)]="question.category" (change)="loadPersonas()">
+    <option [ngValue]="undefined">Surprise me</option>
+    <option *ngFor="let category of categories">{{category}}</option>
+  </select>
+
+  <label>Please select a persona: </label>
+  <select [(ngModel)]="question.personaId">
+    <option [ngValue]="undefined">Surprise me</option>
+    <option *ngFor="let persona of personas" [ngValue]="persona.id">{{persona.name}}</option>
+  </select>
+
+  <input [(ngModel)]="question.text" (input)="inputQuestionText()"/>
+  <div>{{answer?.text}}</div>
+  <div class="error-message">{{error}}</div>
+
+  <!--  <div>Debounced Text: {{debouncedText}}</div>-->
+  <!--  <div>Throttled Text: {{throttledText}}</div>-->
+</div>

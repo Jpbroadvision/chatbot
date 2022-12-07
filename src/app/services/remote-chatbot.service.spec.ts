@@ -1,13 +1,13 @@
 import {TestBed} from '@angular/core/testing';
 
-import {LocalChatbotService} from './local-chatbot.service';
+import {RemoteChatbotService} from './remote-chatbot.service';
 
-describe('LocalChatbotService', () => {
-  let service: LocalChatbotService;
+describe('RemoteChatbotService', () => {
+  let service: RemoteChatbotService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(LocalChatbotService);
+    service = TestBed.inject(RemoteChatbotService);
   });
 
   it('should be created', () => {
