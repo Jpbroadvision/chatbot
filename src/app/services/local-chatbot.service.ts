@@ -11,31 +11,40 @@ export class LocalChatbotService implements ChatbotService {
   private static readonly ANSWERS: Answer[] = [
     {
       text: 'totally',
-      personaId: ''
+      personaId: 'gpt3'
     },
     {
       text: 'yo',
-      personaId: ''
+      personaId: 'gpt3'
     },
     {
       text: 'what do you mean?',
-      personaId: ''
+      personaId: 'gpt1000'
     },
     {
       text: 'let me give it some though',
-      personaId: ''
+      personaId: 'humanoid'
     },
+    {
+      text: 'not right now!',
+      personaId: 'humanoid'
+    }
   ]
 
   private static readonly CATEGORIES = [
     'very special',
-    'extremely special'
+    'extremely special',
   ]
 
   private static readonly PERSONAS: Persona[] = [
     {
       id: 'gpt3',
       name: 'Chat GPT3',
+      category: 'extremely special'
+    },
+    {
+      id: 'gpt1000',
+      name: 'Chat GPT1000',
       category: 'extremely special'
     },
     {
@@ -49,8 +58,15 @@ export class LocalChatbotService implements ChatbotService {
   }
 
   askQuestion(question: Question): Observable<Answer> {
-    const index = Math.floor(Math.random() * LocalChatbotService.ANSWERS.length);
-    return this.createObservable(LocalChatbotService.ANSWERS[index]);
+    const targetedPersonas = LocalChatbotService.PERSONAS
+      .filter(persona => !question.personaId || question.personaId === persona.id)
+      .filter(persona => !question.category || question.category === persona.category)
+      .map(persona => persona.id);
+    const targetedAnswers = LocalChatbotService.ANSWERS
+      .filter(answer => !targetedPersonas || targetedPersonas.includes(answer.personaId));
+
+    const index = Math.floor(Math.random() * targetedAnswers.length);
+    return this.createObservable(targetedAnswers[index]);
   }
 
   getCategories(): Observable<string[]> {
@@ -58,7 +74,8 @@ export class LocalChatbotService implements ChatbotService {
   }
 
   getPersonas(category?: string): Observable<Persona[]> {
-    return this.createObservable(LocalChatbotService.PERSONAS.filter(persona => !category || persona.category === category));
+    return this.createObservable(LocalChatbotService.PERSONAS
+      .filter(persona => !category || persona.category === category));
   }
 
   private createObservable(value: any): Observable<any> {
