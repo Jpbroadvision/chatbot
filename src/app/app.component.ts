@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ChatbotService} from './services/chatbot-service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'chatbot';
+  answer?: string;
+
+  constructor(private chatbotService: ChatbotService) {
+  }
+
+  askQuestion(question: string) {
+    this.answer = this.chatbotService.askQuestion(question);
+  }
 }
